@@ -47,5 +47,3 @@ docker-compose.override.yml
 dist/
 build/
 
-
-*.package-lock.json

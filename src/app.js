@@ -3,9 +3,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-// Import routów (jeszcze puste pliki)
-const exerciseRoutes = require('./routes/exercises');
-// ...
+// Import routów
+const exerciseRoutes    = require('./routes/exercises');
+const workoutRoutes     = require('./routes/workouts');
+const measurementRoutes = require('./routes/measurements');
+const eventRoutes       = require('./routes/events');
 
 const app = express();
 
@@ -14,8 +16,10 @@ app.use(cors());
 app.use(express.json());
 
 // Podstawowe routy
-app.use('/api/exercises', exerciseRoutes);
-// ...
+app.use('/api/exercises',   exerciseRoutes);
+app.use('/api/workouts',     workoutRoutes);
+app.use('/api/measurements', measurementRoutes);
+app.use('/api/events',       eventRoutes);
 
 // Testowy endpoint
 app.get('/', (req, res) => {
@@ -25,7 +29,7 @@ app.get('/', (req, res) => {
 // Połączenie z MongoDB i start serwera
 const PORT = process.env.PORT || 3000;
 mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
+  useNewUrlParser:    true,
   useUnifiedTopology: true,
 })
 .then(() => {
