@@ -3,11 +3,14 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
+
+require('./models/User');
 // Import routów
 const exerciseRoutes    = require('./routes/exercises');
 const workoutRoutes     = require('./routes/workouts');
 const measurementRoutes = require('./routes/measurements');
 const eventRoutes       = require('./routes/events');
+const userRoutes = require('./routes/users');
 
 const app = express();
 
@@ -20,6 +23,7 @@ app.use('/api/exercises',   exerciseRoutes);
 app.use('/api/workouts',     workoutRoutes);
 app.use('/api/measurements', measurementRoutes);
 app.use('/api/events',       eventRoutes);
+app.use('/users', userRoutes);
 
 // Testowy endpoint
 app.get('/', (req, res) => {
