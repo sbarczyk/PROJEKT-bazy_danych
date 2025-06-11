@@ -11,6 +11,7 @@ const workoutRoutes     = require('./routes/workouts');
 const measurementRoutes = require('./routes/measurements');
 const eventRoutes       = require('./routes/events');
 const userRoutes = require('./routes/users');
+const { protect } = require('./middleware/auth');
 
 const app = express();
 
@@ -20,10 +21,10 @@ app.use(express.json());
 
 // Podstawowe routy
 app.use('/api/exercises',   exerciseRoutes);
-app.use('/api/workouts',     workoutRoutes);
+app.use('/api/workouts', protect, workoutRoutes);
 app.use('/api/measurements', measurementRoutes);
 app.use('/api/events',       eventRoutes);
-app.use('/users', userRoutes);
+app.use('/api/users', userRoutes);
 
 // Testowy endpoint
 app.get('/', (req, res) => {
