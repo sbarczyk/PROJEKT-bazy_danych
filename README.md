@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # GymTracker
 
 **Autorzy:** Szymon Barczyk, Jan Dyląg
@@ -40,3 +41,6 @@
 | **Narzędzia**  | Docker, MongoDB Compass, DataGrip        |
 
 ---
+=======
+# GymTracker
+>>>>>>> GymTracker/main
