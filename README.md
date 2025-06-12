@@ -38,5 +38,3 @@
 | **Backend**     | Node.js + Express + Mongoose            |
 | **Frontend**    | React (opcjonalnie) / testy w Postmanie |
 | **Narzędzia**   | Docker, MongoDB Compass, DataGrip       |
-
----
