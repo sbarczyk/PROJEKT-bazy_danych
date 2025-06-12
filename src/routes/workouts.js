@@ -1,10 +1,18 @@
-const router = require('express').Router();
-const ctrl = require('../controllers/workouts');
+// routes/workouts.js
+const express             = require('express');
+// const { protect }         = require('../middleware/auth');
+const { adminOnly, protect }       = require('../middleware/auth');
+const workoutController   = require('../controllers/workouts');
 
-router.get('/',    ctrl.getAllWorkouts);
-router.get('/:id', ctrl.getWorkoutById);
-router.post('/',   ctrl.createWorkout);
-router.put('/:id', ctrl.updateWorkout);
-router.delete('/:id', ctrl.deleteWorkout);
+const router = express.Router();
+
+// publiczne GET-y
+router.get('/',       workoutController.getAllWorkouts);
+router.get('/:id',    workoutController.getWorkoutById);
+
+// modyfikacje tylko dla admina
+router.post('/',      protect, adminOnly, workoutController.createWorkout);
+router.patch('/:id',  protect, adminOnly, workoutController.updateWorkout);
+router.delete('/:id', protect, adminOnly, workoutController.deleteWorkout);
 
 module.exports = router;

@@ -2,7 +2,7 @@ const express   = require('express');
 const jwt       = require('jsonwebtoken');
 const bcrypt    = require('bcryptjs');
 const User      = require('../models/User');
-const { protect } = require('../middleware/auth');
+const { protect, adminOnly } = require('../middleware/auth');
 
 const router = express.Router();
 
@@ -38,12 +38,12 @@ router.post('/register', async (req, res) => {
 
 
 
-function adminOnly(req, res, next) {
-  if (!req.user.isAdmin) {
-    return res.status(403).json({ success:false, message:'Brak dostępu. Tylko admin.' });
-  }
-  next();
-}
+// function adminOnly(req, res, next) {
+//   if (!req.user.isAdmin) {
+//     return res.status(403).json({ success:false, message:'Brak dostępu. Tylko admin.' });
+//   }
+//   next();
+// }
 
 
 router.post(
@@ -131,6 +131,28 @@ router.patch('/:id', protect, async (req, res) => {
       success: false,
       message: err.message
     });
+  }
+});
+
+
+// DELETE /api/users/:id
+// — admin może usuwać wszystkich, zwykły user tylko siebie
+router.delete('/:id', protect, async (req, res) => {
+  const { id } = req.params;
+
+  // jeśli nie admin i to nie jego własne konto → brak dostępu
+  if (!req.user.isAdmin && req.user.id !== id) {
+    return res.status(403).json({ success:false, message:'Brak dostępu.' });
+  }
+
+  try {
+    const deleted = await User.findByIdAndDelete(id);
+    if (!deleted) {
+      return res.status(404).json({ success:false, message:'Nie znaleziono użytkownika.' });
+    }
+    res.json({ success:true, message:'Użytkownik usunięty.' });
+  } catch (err) {
+    res.status(500).json({ success:false, message: err.message });
   }
 });
 

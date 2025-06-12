@@ -1,15 +1,17 @@
 // routes/exercises.js
-const router = require('express').Router();
-const ctrl = require('../controllers/exercises');
+const express               = require('express');
+const { protect, adminOnly }= require('../middleware/auth');
+const ec                    = require('../controllers/exercises');
 
-// GET /api/exercises/categories - musi być przed /:id
-router.get('/categories', ctrl.getCategories);
+const router = express.Router();
 
-// CRUD endpoints
-router.get('/', ctrl.getAllExercises);
-router.get('/:id', ctrl.getExerciseById);
-router.post('/', ctrl.createExercise);
-router.put('/:id', ctrl.updateExercise);
-router.delete('/:id', ctrl.deleteExercise);
+// 1) Publiczne GET-y (lub protect jeśli chcesz tylko zalogowanych)
+router.get('/',      ec.getAllExercises);
+router.get('/:id',   ec.getExerciseById);
+
+// 2) Modyfikacje tylko dla admina
+router.post('/',     protect, adminOnly, ec.createExercise);
+router.patch('/:id', protect, adminOnly, ec.updateExercise);
+router.delete('/:id',protect, adminOnly, ec.deleteExercise);
 
 module.exports = router;
