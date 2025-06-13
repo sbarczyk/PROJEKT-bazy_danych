@@ -47,7 +47,33 @@ const workoutSchema = new mongoose.Schema({
     required: true,
     default: Date.now
   },
-  exercises: [workoutExerciseSchema],
+  exercises: {
+  type: [workoutExerciseSchema],
+
+  // ⬇️  DWA walidatory: 1) lista nie może być pusta  2) każde ćwiczenie musi być w bazie
+  validate: [
+    // 1️⃣ co najmniej jedno ćwiczenie
+    {
+      validator: function (arr) {
+        return Array.isArray(arr) && arr.length > 0;
+      },
+      message: 'Workout musi zawierać co najmniej jedno ćwiczenie.'
+    },
+    // 2️⃣ wszystkie ID-ki istnieją w kolekcji Exercise
+    {
+      // async → zwraca Promise; Mongoose obsłuży to sam
+      validator: async function (arr) {
+        const ids   = arr.map(e => e.exercise);
+        const count = await mongoose
+          .model('Exercise')              // unikamy cyklicznego importu
+          .countDocuments({ _id: { $in: ids } });
+
+        return count === ids.length;      // true ↔ wszystkie znalezione
+      },
+      message: 'Co najmniej jedno ćwiczenie nie istnieje w bazie.'
+    }
+  ]
+},
   duration: {
     type: Number, // minuty
     min: 0

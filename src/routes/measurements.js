@@ -12,7 +12,7 @@ router.delete('/',   protect, mc.deleteMy);
 
 // Admin ma dodatkowo dostęp do wszystkich po ID:
 router.get('/all',   protect, adminOnly, mc.getAll);
-router.patch('/:userid', protect, adminOnly, mc.updateByUser);
+router.patch('/:userId', protect, adminOnly, mc.updateByUser);
 router.delete('/:userId',protect, adminOnly, mc.deleteByUser);
 
 module.exports = router;

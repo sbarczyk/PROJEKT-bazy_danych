@@ -1,18 +1,18 @@
-// routes/workouts.js
-const express             = require('express');
-// const { protect }         = require('../middleware/auth');
-const { adminOnly, protect }       = require('../middleware/auth');
-const workoutController   = require('../controllers/workouts');
+const express           = require('express');
+const { protect }       = require('../middleware/auth');   // <-- adminOnly usunięte
+const workoutController = require('../controllers/workouts');
 
 const router = express.Router();
 
-// publiczne GET-y
-router.get('/',       workoutController.getAllWorkouts);
-router.get('/:id',    workoutController.getWorkoutById);
+// GET – wystarczy protect, żeby znać req.user.
+// Jeśli chcesz, by lista zwracała tylko własne workouty, 
+// filtr zrobisz w kontrolerze (user vs admin).
+router.get('/',    protect, workoutController.getAllWorkouts);
+router.get('/:id', protect, workoutController.getWorkoutById);
 
-// modyfikacje tylko dla admina
-router.post('/',      protect, adminOnly, workoutController.createWorkout);
-router.patch('/:id',  protect, adminOnly, workoutController.updateWorkout);
-router.delete('/:id', protect, adminOnly, workoutController.deleteWorkout);
+// modyfikacje dostępne dla KAŻDEGO zalogowanego
+router.post('/',      protect, workoutController.createWorkout);
+router.patch('/:id',  protect, workoutController.updateWorkout);
+router.delete('/:id', protect, workoutController.deleteWorkout);
 
 module.exports = router;
