@@ -67,4 +67,9 @@ eventSchema.virtual('availableSpots').get(function() {
   return this.maxParticipants - this.participants.length;
 });
 
+eventSchema.index(
+  { _id: 1, 'participants.user': 1 },
+  { unique: true, sparse: true }
+);
+
 module.exports = mongoose.model('Event', eventSchema);
