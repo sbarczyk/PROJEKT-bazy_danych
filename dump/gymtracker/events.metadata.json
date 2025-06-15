@@ -1,0 +1,1 @@
+{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_"},{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"},"participants.user":{"$numberInt":"1"}},"name":"_id_1_participants.user_1","background":true,"unique":true,"sparse":true}],"uuid":"2f6f30b72b614e96ba0161abb2884ecf","collectionName":"events","type":"collection"}

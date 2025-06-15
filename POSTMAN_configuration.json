@@ -1,0 +1,1092 @@
+{
+	"info": {
+		"_postman_id": "56afea27-deb7-4bfc-ac76-4757a622fcf6",
+		"name": "GymTracker",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40363936"
+	},
+	"item": [
+		{
+			"name": "Workouts",
+			"item": [
+				{
+					"name": "GetWorkouts",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGU5MDA1OGJjZDI5MGRjNjY5MThkMiIsImlhdCI6MTc1MDAwMjY2NCwiZXhwIjoxNzUwNjA3NDY0fQ.Bcc6F4qSSb6_s4IHyPB1rfntiS3DRfgWZtTuOiV0_H0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/workouts/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"workouts",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addWorkout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGVlZDlkODAyN2I2ODA1OWFjZTEyYiIsImlhdCI6MTc1MDAwMzg0MSwiZXhwIjoxNzUwNjA4NjQxfQ.ewLlvqI83z69agmLalmMMgzrO95TGVQYFXCUtawrgjw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"user\": \"684e90058bcd290dc66918d2\",          // ID właściciela treningu\r\n  \"name\": \"Full-Body Strength Session\",         // nazwa sesji\r\n  \"date\": \"2025-06-15T17:00:00.000Z\",           // czas wykonania\r\n  \"duration\": 75,                               // długość treningu w minutach\r\n  \"notes\": \"Skup się na technice i pełnym zakresie ruchu.\",\r\n  \"exercises\": [\r\n    {\r\n      \"exercise\": \"684eb1adde95fbdbe54fa6be\",   // Deadlift\r\n      \"sets\": [\r\n        { \"reps\": 8,  \"weight\": 60, \"restTime\": 120 },\r\n        { \"reps\": 6,  \"weight\": 70, \"restTime\": 150 },\r\n        { \"reps\": 4,  \"weight\": 80, \"restTime\": 180 }\r\n      ],\r\n      \"notes\": \"Ostatnie powtórzenie ciężkie – nie zaokrąglaj pleców.\"\r\n    },\r\n    {\r\n      \"exercise\": \"684eb1c3de95fbdbe54fa6c1\",   // Bench Press\r\n      \"sets\": [\r\n        { \"reps\": 10, \"weight\": 45, \"restTime\": 90 },\r\n        { \"reps\": 8,  \"weight\": 50, \"restTime\": 90 },\r\n        { \"reps\": 6,  \"weight\": 55, \"restTime\": 120 }\r\n      ]\r\n    },\r\n    {\r\n      \"exercise\": \"684eb1d5de95fbdbe54fa6c4\",   // Dead lift (druga odmiana)\r\n      \"sets\": [\r\n        { \"reps\": 12, \"weight\": 40, \"restTime\": 90 },\r\n        { \"reps\": 10, \"weight\": 45, \"restTime\": 90 }\r\n      ]\r\n    },\r\n    {\r\n      \"exercise\": \"684eb1e9de95fbdbe54fa6c7\",   // Lateral Raise\r\n      \"sets\": [\r\n        { \"reps\": 15, \"weight\": 8,  \"restTime\": 60 },\r\n        { \"reps\": 15, \"weight\": 8,  \"restTime\": 60 },\r\n        { \"reps\": 15, \"weight\": 8,  \"restTime\": 60 }\r\n      ]\r\n    },\r\n    {\r\n      \"exercise\": \"684eee348027b68059ace12f\",   // Leg Curl\r\n      \"sets\": [\r\n        { \"reps\": 12, \"weight\": 35, \"restTime\": 75 },\r\n        { \"reps\": 12, \"weight\": 35, \"restTime\": 75 },\r\n        { \"reps\": 12, \"weight\": 35, \"restTime\": 75 }\r\n      ]\r\n    },\r\n    {\r\n      \"exercise\": \"684eee478027b68059ace132\",   // Bicep Curl\r\n      \"sets\": [\r\n        { \"reps\": 12, \"weight\": 16, \"restTime\": 60 },\r\n        { \"reps\": 12, \"weight\": 16, \"restTime\": 60 },\r\n        { \"reps\": 12, \"weight\": 16, \"restTime\": 60 }\r\n      ]\r\n    }\r\n  ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/workouts",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"workouts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateWorkout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGU5MDA1OGJjZDI5MGRjNjY5MThkMiIsImlhdCI6MTc1MDAwNzI0MiwiZXhwIjoxNzUwNjEyMDQyfQ.MjtmdQtYHRbH9nO_1u32DM-UTOudAbc6lrLRnYemy2o",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"exercises\": [\r\n    {\r\n      \"exercise\": \"684eb1adde95fbdbe54fa6be\",   // Deadlift\r\n      \"sets\": [\r\n        { \"reps\": 8,  \"weight\": 60, \"restTime\": 120 },\r\n        { \"reps\": 6,  \"weight\": 70, \"restTime\": 150 },\r\n        { \"reps\": 4,  \"weight\": 80, \"restTime\": 180 }\r\n      ],\r\n      \"notes\": \"Ostatnie powtórzenie ciężkie – nie zaokrąglaj pleców.\"\r\n    }\r\n\r\n  ]               \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/workouts/684eb6be375ce5322ebca22d",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"workouts",
+								"684eb6be375ce5322ebca22d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteWorkout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGFiMTA2ODQ4NjMyMTkzMzVmZmEwNyIsImlhdCI6MTc0OTgyODg0MywiZXhwIjoxNzUwNDMzNjQzfQ.pjr6UV2E65qLFwGls51_dPKmQgQYGW6FKaxWJBhlEJs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/workouts/684eb6be375ce5322ebca22d",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"workouts",
+								"684eb6be375ce5322ebca22d"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Jan Polak\",\r\n    \"email\": \"J@P.com\",\r\n    \"password\": \"haslomaslo\"\r\n\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetUsers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGU5MDA1OGJjZDI5MGRjNjY5MThkMiIsImlhdCI6MTc1MDAwMjEzNywiZXhwIjoxNzUwNjA2OTM3fQ.OvZkpDrW1pt9tLK3_mzvg6UJKwioGkX0ezuKQVeaoig",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LogInAdmin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"admin@twojadomena.pl\",\r\n  \"password\": \"TwojeHasloAdmina\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modify",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGU5MDA1OGJjZDI5MGRjNjY5MThkMiIsImlhdCI6MTc1MDAwNzI0MiwiZXhwIjoxNzUwNjEyMDQyfQ.MjtmdQtYHRbH9nO_1u32DM-UTOudAbc6lrLRnYemy2o",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Jan Nowak\",\r\n  \"email\": \"nowy@e-mail.pl\",\r\n  \"password\": \"haslomaslo\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users/684e90e219a858c8a751be33",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"684e90e219a858c8a751be33"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGIwMmQzMGJjMzc3ZjQzODUzY2U5NCIsImlhdCI6MTc0OTc0NzAzMiwiZXhwIjoxNzUwMzUxODMyfQ.5QFzuQA0vx39cJqwjm-ouB8xYSBrcqTkabG3CwVuwP4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users/684b02d30bc377f43853ce94",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"684b02d30bc377f43853ce94"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LogInUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"J@P.com\",\r\n    \"password\": \"haslomaslo\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Exercises",
+			"item": [
+				{
+					"name": "ListExercises",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGIwNWE4MGJjMzc3ZjQzODUzY2VhYSIsImlhdCI6MTc0OTc0OTcyNiwiZXhwIjoxNzUwMzU0NTI2fQ.ARauJbeDJQGIU5hyghYUl2SAtL64xQPersYsZsFKqos",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/exercises",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"exercises"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddExercise",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGU5MDA1OGJjZDI5MGRjNjY5MThkMiIsImlhdCI6MTc1MDAwMzE4NSwiZXhwIjoxNzUwNjA3OTg1fQ.BYHS0PAW86F0EthBZAclWbjfpxC3xTLni1FIqRX1O1Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"bicep curl curl\",\r\n  \"category\": \"arms\",\r\n  \"muscleGroups\": [\"lower back\",\"glutes\"],\r\n  \"description\": \"Zginanie nóg w kolanie z obciążeniem\",\r\n  \"instructions\": [\"Ustaw stopy pod sztangą\", \"Podnieś…\"]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/exercises",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"exercises"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOne",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGIwNWE4MGJjMzc3ZjQzODUzY2VhYSIsImlhdCI6MTc0OTc0OTcyNiwiZXhwIjoxNzUwMzU0NTI2fQ.ARauJbeDJQGIU5hyghYUl2SAtL64xQPersYsZsFKqos",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/exercises/684eb1c3de95fbdbe54fa6c1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"exercises",
+								"684eb1c3de95fbdbe54fa6c1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RemoveExercise",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGIwNWE4MGJjMzc3ZjQzODUzY2VhYSIsImlhdCI6MTc0OTc0OTcyNiwiZXhwIjoxNzUwMzU0NTI2fQ.ARauJbeDJQGIU5hyghYUl2SAtL64xQPersYsZsFKqos",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/exercises/684eb1c3de95fbdbe54fa6c1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"exercises",
+								"684eb1c3de95fbdbe54fa6c1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ModifyExercise",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGU5MDA1OGJjZDI5MGRjNjY5MThkMiIsImlhdCI6MTc1MDAwMzc4MCwiZXhwIjoxNzUwNjA4NTgwfQ.BGEVBuaDRz0tNRHRIbmgL_un9DeSY--T1YJjuI3M2JY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Bicep curl\"\r\n  \r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/exercises/684eb1c3de95fbdbe54fa6c1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"exercises",
+								"684eb1c3de95fbdbe54fa6c1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Measurements",
+			"item": [
+				{
+					"name": "AddMeasurement",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGVlZDlkODAyN2I2ODA1OWFjZTEyYiIsImlhdCI6MTc1MDAwNzU5MiwiZXhwIjoxNzUwNjEyMzkyfQ.9OXKXpg3K-e_6mJ2Tr5_Nkzfq8Z_I3P2am9OmB5u9Gw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"weight\": 100,\r\n  \"bodyFat\": 6,\r\n  \"measurements\": {\r\n    \"chest\": 80,\r\n    \"waist\": 50,\r\n    \"hips\": 20\r\n  },\r\n  \"notes\": \"Form nice!\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/measurements",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"measurements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateMeasurement",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGVlZDlkODAyN2I2ODA1OWFjZTEyYiIsImlhdCI6MTc1MDAwNzU5MiwiZXhwIjoxNzUwNjEyMzkyfQ.9OXKXpg3K-e_6mJ2Tr5_Nkzfq8Z_I3P2am9OmB5u9Gw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"weight\": 200,\r\n  \"bodyFat\": 100,\r\n  \"measurements\": {\r\n    \"chest\": 90,\r\n    \"waist\": 80,\r\n    \"hips\": 95\r\n  },\r\n  \"notes\": \"Form ok!\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/measurements",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"measurements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAll",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGU5MDA1OGJjZDI5MGRjNjY5MThkMiIsImlhdCI6MTc0OTk5NTU5NSwiZXhwIjoxNzUwNjAwMzk1fQ.3sEIvbGOJN0Ra1-5CVl1dpXcmuDjuf1vLGgKh-Id-N0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/measurements/all",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"measurements",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetMy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGU5MGUyMTlhODU4YzhhNzUxYmUzMyIsImlhdCI6MTc0OTk5NTYyNSwiZXhwIjoxNzUwNjAwNDI1fQ._Sazd82m_W1_oFNbGSKrS8fNQkMcunV6T72ZwYdidCk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/measurements",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"measurements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeteleSelf",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGIwNWE4MGJjMzc3ZjQzODUzY2VhYSIsImlhdCI6MTc0OTc1OTQ1NSwiZXhwIjoxNzUwMzY0MjU1fQ.Y6SMj07ApILys5UZ42HZj_3sMEYOVHtXhJy6J9RAlP8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/measurements",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"measurements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteOneUserID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGFiMTA2ODQ4NjMyMTkzMzVmZmEwNyIsImlhdCI6MTc0OTc2MDQzOSwiZXhwIjoxNzUwMzY1MjM5fQ.NeuP2uR92unz1rD9zXZurhLDRn8ullrUek-TZXxoL6I",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/measurements/684e911819a858c8a751be35",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"measurements",
+								"684e911819a858c8a751be35"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateMeasurementByUserID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGFiMTA2ODQ4NjMyMTkzMzVmZmEwNyIsImlhdCI6MTc0OTc2MTg4MiwiZXhwIjoxNzUwMzY2NjgyfQ.lKJna0TIiYxdri9s0L2fDhYKEY7Npbi4_nag2gna9R0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"weight\": 2434,\r\n  \"bodyFat\": 100,\r\n  \"measurements\": {\r\n    \"chest\": 90,\r\n    \"waist\": 80,\r\n    \"hips\": 95\r\n  },\r\n  \"notes\": \"Form ok!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/measurements/684b34a1195af78eabdd0a3c",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"measurements",
+								"684b34a1195af78eabdd0a3c"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Events",
+			"item": [
+				{
+					"name": "GetAll",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGU5MGUyMTlhODU4YzhhNzUxYmUzMyIsImlhdCI6MTc1MDAwMjUyMiwiZXhwIjoxNzUwNjA3MzIyfQ.3tVkfNNeGmaMFZl3Y7KMXnKvANqA31fDjYVvhGhetSw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/events",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddEvent",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGU5MDA1OGJjZDI5MGRjNjY5MThkMiIsImlhdCI6MTc1MDAwMzE4NSwiZXhwIjoxNzUwNjA3OTg1fQ.BYHS0PAW86F0EthBZAclWbjfpxC3xTLni1FIqRX1O1Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"zawody w podnoszeniu ciężarów\",\r\n  \"type\": \"strength_test\",\r\n  \"date\": \"2025-07-01T17:00:00.000Z\",\r\n  \"duration\": 120,\r\n  \"maxParticipants\": 4,\r\n  \"isActive\": true,\r\n  \"description\": \"weights\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/events",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGVlZDlkODAyN2I2ODA1OWFjZTEyYiIsImlhdCI6MTc1MDAwMzQ3MSwiZXhwIjoxNzUwNjA4MjcxfQ.T3f89tCj71JaOnY2zMuPJDicfx8IRHDpchyRPprQf5w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/events/684ed0242864d6583fe84197/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"events",
+								"684ed0242864d6583fe84197",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EditEvent",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGFiMTA2ODQ4NjMyMTkzMzVmZmEwNyIsImlhdCI6MTc0OTg0NzY2NywiZXhwIjoxNzUwNDUyNDY3fQ.PY0wZhx6_1mFJT2pZmmcYetPM6MY4KwSNI_3bumxjtY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"maxParticipants\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/events/684ed0242864d6583fe84197",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"events",
+								"684ed0242864d6583fe84197"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unregister",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGU5MGUyMTlhODU4YzhhNzUxYmUzMyIsImlhdCI6MTc0OTk4MjA4OSwiZXhwIjoxNzUwNTg2ODg5fQ.6Qek81YsGuDiJ7ka9pHGzFPMnjJ3BlLz6WJwd8gsNS4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/events/684ed0242864d6583fe84197/unregister",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"events",
+								"684ed0242864d6583fe84197",
+								"unregister"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeteleEvent",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGIwNWE4MGJjMzc3ZjQzODUzY2VhYSIsImlhdCI6MTc0OTg0ODgzNSwiZXhwIjoxNzUwNDUzNjM1fQ.Ns5cEQaD_cA7znEzFBDa3XTmuk-EAmJGjpj-oA-HMng",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/events/684ed0242864d6583fe84197",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"events",
+								"684ed0242864d6583fe84197"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GetLeaderboard",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGU5MDA1OGJjZDI5MGRjNjY5MThkMiIsImlhdCI6MTc0OTk4NzA2NSwiZXhwIjoxNzUwNTkxODY1fQ.7XXBpS_E8ffYWRoZGY9UiADoC_X31lM8VEtA3gH_z98",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/reports/leaderboard",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"reports",
+						"leaderboard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetTopExercises",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGU5MGUyMTlhODU4YzhhNzUxYmUzMyIsImlhdCI6MTc0OTk4ODAxMiwiZXhwIjoxNzUwNTkyODEyfQ.K-L86kRPFyvBkoh90XQQUJ5cIDuwEYMG8joZDlN5lXE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/reports/top-sets/684e90e219a858c8a751be33?year=2025&month=6",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"reports",
+						"top-sets",
+						"684e90e219a858c8a751be33"
+					],
+					"query": [
+						{
+							"key": "year",
+							"value": "2025"
+						},
+						{
+							"key": "month",
+							"value": "6"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "HowManyWorkoutsInMonth",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGU5MGUyMTlhODU4YzhhNzUxYmUzMyIsImlhdCI6MTc0OTk5MDA4MCwiZXhwIjoxNzUwNTk0ODgwfQ.y-LrludtMghR_PMmUBuuSxvztZ0fyDeUXe0bTTk6Sbg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/reports/workout-count/684e90e219a858c8a751be33?year=2025&month=6",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"reports",
+						"workout-count",
+						"684e90e219a858c8a751be33"
+					],
+					"query": [
+						{
+							"key": "year",
+							"value": "2025"
+						},
+						{
+							"key": "month",
+							"value": "6"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "localhost:3000",
+			"type": "default"
+		}
+	]
+}

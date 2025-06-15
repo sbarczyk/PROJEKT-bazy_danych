@@ -8,11 +8,6 @@ const { protect, adminOnly } = require('../middleware/auth');
 // kontroler z logiką raportów
 const reports = require('../controllers/reports');
 
-/**
- *  GET /api/reports/leaderboard
- *  Zwraca tablicę użytkowników posortowanych malejąco po polu `points`.
- *  Dostęp tylko dla zalogowanego admina.
- */
 router.get('/leaderboard', protect, adminOnly, reports.leaderboard);
 
 
