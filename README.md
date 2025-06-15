@@ -72,4 +72,4 @@ mongorestore \
 npm start
 ```
 
-Serwer backendowy będzie działać pod adresem: **http://localhost:5000**
+Serwer backendowy będzie działać pod adresem: **http://localhost:3000**
