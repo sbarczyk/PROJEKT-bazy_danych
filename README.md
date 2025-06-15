@@ -56,35 +56,6 @@ docker exec -it gymtracker-mongo mongosh --eval 'rs.initiate({_id: "rs0", member
 
 #### 5. Zainstaluj mongorestore (jeśli nie masz)
 
-**Windows**
-1. Pobierz ZIP: https://www.mongodb.com/try/download/database-tools
-2. Wypakuj do np. C:\MongoTools
-3. Dodaj C:\MongoTools\bin do zmiennej środowiskowej PATH:
-   - Otwórz "Panel sterowania" → "System" → "Zaawansowane ustawienia systemu"
-   - Kliknij "Zmienne środowiskowe"
-   - W sekcji "Zmienne systemowe" znajdź i zaznacz "Path"
-   - Kliknij "Edytuj"
-   - Kliknij "Nowy" i dodaj ścieżkę: `C:\MongoTools\bin`
-   - Kliknij "OK" we wszystkich oknach
-   - Uruchom ponownie wiersz poleceń (cmd/PowerShell)
-4. Sprawdź instalację:
-```bash
-mongorestore --version
-```
-
-**Linux (Debian/Ubuntu)**
-```bash
-wget https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2004-x86_64-100.9.4.deb
-sudo dpkg -i mongodb-database-tools-*.deb
-mongorestore --version
-```
-
-**macOS (Homebrew)**
-```bash
-brew tap mongodb/brew
-brew install mongodb-database-tools
-mongorestore --version
-```
 
 #### 6. Przywróć bazę danych z dumpu
 Upewnij się, że masz folder dump/ (np. ./dump/gymtracker). Potem uruchom:
