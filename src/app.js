@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
+console.log('Loaded URI:', process.env.MONGO_URI);
 
 require('./models/User');
 // Import routów
@@ -25,6 +26,8 @@ app.use('/api/workouts', protect, workoutRoutes);
 app.use('/api/measurements', measurementRoutes);
 app.use('/api/events',       eventRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/reports', require('./routes/reports'));
+
 
 // Testowy endpoint
 app.get('/', (req, res) => {
@@ -34,8 +37,7 @@ app.get('/', (req, res) => {
 // Połączenie z MongoDB i start serwera
 const PORT = process.env.PORT || 3000;
 mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser:    true,
-  useUnifiedTopology: true,
+  
 })
 .then(() => {
   console.log('Połączono z MongoDB');
