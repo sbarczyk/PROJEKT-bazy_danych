@@ -17,5 +17,10 @@ router.get('/leaderboard', protect, adminOnly, reports.leaderboard);
 
 // możesz tu w przyszłości dodać kolejne raporty, np.:
 // router.get('/events/popularity', protect, adminOnly, reports.eventsPopularity);
+router.get(
+  '/top-sets/:userId',
+  protect,                  // użytkownik musi być zalogowany
+  reports.topSetsPerMonth
+);
 
 module.exports = router;

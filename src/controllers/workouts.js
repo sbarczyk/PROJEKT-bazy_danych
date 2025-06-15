@@ -92,22 +92,27 @@ exports.deleteWorkout = async (req, res) => {
 
 exports.createWorkout = async (req, res) => {
   try {
-    // 1) sprawdź, czy przesłano tablicę exercises
+    /* ---------- 1. TABLICA ID ĆWICZEŃ ---------- */
     const exercisesIds = (req.body.exercises || []).map(e => e.exercise);
 
-    // 2) zweryfikuj, czy każde ID jest w bazie
-    const found = await Exercise.countDocuments({ _id: { $in: exercisesIds } });
-    if (found !== exercisesIds.length)
+    /*  deduplikacja  */
+    const uniqueIds = [...new Set(exercisesIds.map(id => id.toString()))];
+
+    /* ---------- 2. WALIDACJA ---------- */
+    const found = await Exercise.countDocuments({ _id: { $in: uniqueIds } });
+
+    if (found !== uniqueIds.length) {
       return res.status(400).json({
         success: false,
         message: 'Co najmniej jedno ćwiczenie nie istnieje'
       });
+    }
 
-    // 3) zapisz workout z przypisaniem do usera
+    /* ---------- 3. ZAPIS WORKOUTU ---------- */
     const workout = new Workout({ ...req.body, user: req.user.id });
     const saved   = await workout.save();
-    res.status(201).json({ success: true, data: saved });
 
+    res.status(201).json({ success: true, data: saved });
   } catch (err) {
     res.status(400).json({ success: false, message: err.message });
   }
