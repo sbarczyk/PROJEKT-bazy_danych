@@ -53,6 +53,11 @@ docker run -d \
 ```bash
 docker exec -it gymtracker-mongo mongosh --eval 'rs.initiate({_id: "rs0", members: [{_id: 0, host: "localhost:27017"}]})'
 ```
+lub – jeśli masz zainstalowany lokalnie mongosh – możesz uruchomić inicjalizację z zewnątrz kontenera:
+```bash
+mongosh "mongodb://127.0.0.1:27017" --eval 'rs.initiate({_id: "rs0", members: [{_id: 0, host: "localhost:27017"}]})'
+```
+
 
 #### 5. Zainstaluj mongorestore (jeśli nie masz)
 
