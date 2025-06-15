@@ -51,7 +51,7 @@ docker run -d \
 
 #### 4. Zainicjuj replica set (jednorazowo po starcie MongoDB)
 ```bash
-docker exec -it gymtracker-mongo mongo --eval "rs.initiate()"
+docker run -it --rm mongodb/mongodb-community-server:6.0-ubi8 mongosh "mongodb://host.docker.internal:27017" --eval "rs.initiate()"
 ```
 
 #### 5. Zainstaluj mongorestore (jeśli nie masz)
