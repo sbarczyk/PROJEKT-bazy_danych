@@ -60,7 +60,10 @@ docker exec -it gymtracker-mongo mongosh --eval 'rs.initiate({_id: "rs0", member
 #### 6. Przywróć bazę danych z dumpu
 Upewnij się, że masz folder dump/ (np. ./dump/gymtracker). Potem uruchom:
 ```bash
-mongorestore --uri="mongodb://localhost:27017/gymtracker?replicaSet=rs0" ./dump
+mongorestore \
+  --uri="mongodb://127.0.0.1:27017/gymtracker?replicaSet=rs0" \
+  --drop \
+  ./dump/gymtracker
 ```
 
 
