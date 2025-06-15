@@ -1,116 +1,123 @@
-const Workout = require('../models/Workout');
-const Exercise = require('../models/Exercise');
+const Workout = require("../models/Workout");
+const Exercise = require("../models/Exercise");
 
-// GET /api/workouts
+// Pobierz wszystkie treningi
 exports.getAllWorkouts = async (req, res) => {
   try {
-    const filter = req.user.isAdmin ? {} : { user: req.user.id };
+    const filter = req.user.isAdmin ? {} : { user: req.user.id }; // Filtruj na podstawie roli użytkownika
     const workouts = await Workout.find(filter)
-      .populate('exercises.exercise', 'name')
-      .sort({ date: -1 });
+      .populate("exercises.exercise", "name") // Dołącz dane ćwiczeń
+      .sort({ date: -1 }); // Sortuj malejąco według daty
     res.json({ success: true, count: workouts.length, data: workouts });
   } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+    res.status(500).json({ success: false, message: err.message }); // Obsługa błędów
   }
 };
 
-// GET /api/workouts/:id
+// Pobierz trening po ID
 exports.getWorkoutById = async (req, res) => {
   try {
-    const workout = await Workout.findById(req.params.id)
-      .populate('exercises.exercise', 'name');
-    if (!workout) return res.status(404).json({ success: false, message: 'Nie znaleziono' });
+    const workout = await Workout.findById(req.params.id).populate(
+      "exercises.exercise",
+      "name"
+    ); // Dołącz dane ćwiczeń
+    if (!workout)
+      return res
+        .status(404)
+        .json({ success: false, message: "Nie znaleziono" }); // Trening nie znaleziony
     res.json({ success: true, data: workout });
   } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+    res.status(500).json({ success: false, message: err.message }); // Obsługa błędów
   }
 };
 
-// POST /api/workouts
+// Utwórz nowy trening
 exports.createWorkout = async (req, res) => {
   try {
-    const w = new Workout({ ...req.body, user: req.user?.id });
-    const saved = await w.save();
+    const w = new Workout({ ...req.body, user: req.user?.id }); // Utwórz nowy trening
+    const saved = await w.save(); // Zapisz trening
     res.status(201).json({ success: true, data: saved });
   } catch (err) {
-    res.status(400).json({ success: false, message: err.message });
+    res.status(400).json({ success: false, message: err.message }); // Obsługa błędów
   }
 };
 
-// PUT /api/workouts/:id
+// Zaktualizuj trening
 exports.updateWorkout = async (req, res) => {
   try {
-    const workout = await Workout.findById(req.params.id);
+    const workout = await Workout.findById(req.params.id); // Znajdź trening po ID
     if (!workout)
-      return res.status(404).json({ success: false, message: 'Nie znaleziono' });
+      return res
+        .status(404)
+        .json({ success: false, message: "Nie znaleziono" }); // Trening nie znaleziony
 
-    // 1) autoryzacja
+    // Autoryzacja
     if (workout.user.toString() !== req.user.id && !req.user.isAdmin)
-      return res.status(403).json({ success: false, message: 'Brak uprawnień' });
+      return res
+        .status(403)
+        .json({ success: false, message: "Brak uprawnień" }); // Brak uprawnień
 
-    // 2) opcjonalna walidacja ćwiczeń, jeżeli użytkownik je aktualizuje
+    // Opcjonalna walidacja ćwiczeń
     if (req.body.exercises) {
-      const ids = req.body.exercises.map(e => e.exercise);
+      const ids = req.body.exercises.map((e) => e.exercise);
       const found = await Exercise.countDocuments({ _id: { $in: ids } });
       if (found !== ids.length)
         return res.status(400).json({
           success: false,
-          message: 'Co najmniej jedno ćwiczenie nie istnieje'
+          message: "Co najmniej jedno ćwiczenie nie istnieje",
         });
     }
 
     const updated = await Workout.findByIdAndUpdate(
       req.params.id,
       req.body,
-      { new: true, runValidators: true }
+      { new: true, runValidators: true } // Aktualizuj z walidacją
     );
 
     res.json({ success: true, data: updated });
   } catch (err) {
-    res.status(400).json({ success: false, message: err.message });
+    res.status(400).json({ success: false, message: err.message }); // Obsługa błędów
   }
 };
 
-
-// DELETE /api/workouts/:id
+// Usuń trening
 exports.deleteWorkout = async (req, res) => {
   try {
-    const workout = await Workout.findById(req.params.id);
+    const workout = await Workout.findById(req.params.id); // Znajdź trening po ID
     if (!workout)
-      return res.status(404).json({ success: false, message: 'Nie znaleziono' });
+      return res
+        .status(404)
+        .json({ success: false, message: "Nie znaleziono" }); // Trening nie znaleziony
 
     if (workout.user.toString() !== req.user.id && !req.user.isAdmin)
-      return res.status(403).json({ success: false, message: 'Brak uprawnień' });
+      return res
+        .status(403)
+        .json({ success: false, message: "Brak uprawnień" }); // Brak uprawnień
 
-    await workout.deleteOne();
-    res.json({ success: true, message: 'Usunięto trening' });
+    await workout.deleteOne(); // Usuń trening
+    res.json({ success: true, message: "Usunięto trening" });
   } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+    res.status(500).json({ success: false, message: err.message }); // Obsługa błędów
   }
 };
-
 
 exports.createWorkout = async (req, res) => {
   try {
-    /* ---------- 1. TABLICA ID ĆWICZEŃ ---------- */
-    const exercisesIds = (req.body.exercises || []).map(e => e.exercise);
+    const exercisesIds = (req.body.exercises || []).map((e) => e.exercise);
 
-    /*  deduplikacja  */
-    const uniqueIds = [...new Set(exercisesIds.map(id => id.toString()))];
+    const uniqueIds = [...new Set(exercisesIds.map((id) => id.toString()))];
 
-    /* ---------- 2. WALIDACJA ---------- */
     const found = await Exercise.countDocuments({ _id: { $in: uniqueIds } });
 
     if (found !== uniqueIds.length) {
       return res.status(400).json({
         success: false,
-        message: 'Co najmniej jedno ćwiczenie nie istnieje'
+        message: "Co najmniej jedno ćwiczenie nie istnieje",
       });
     }
 
-    /* ---------- 3. ZAPIS WORKOUTU ---------- */
     const workout = new Workout({ ...req.body, user: req.user.id });
-    const saved   = await workout.save();
+    const saved = await workout.save();
 
     res.status(201).json({ success: true, data: saved });
   } catch (err) {

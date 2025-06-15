@@ -1,56 +1,57 @@
-// controllers/userController.js
-const User = require('../models/User');
+const User = require("../models/User");
 
-// GET /users
+// Pobierz wszystkich użytkowników
 exports.getAllUsers = async (req, res, next) => {
   try {
-    const users = await User.find();
+    const users = await User.find(); // Pobierz wszystkich użytkowników
     res.json(users);
   } catch (err) {
-    next(err);
+    next(err); // Przekaż błąd do następnego middleware
   }
 };
 
-// GET /users/:id
+// Pobierz użytkownika po ID
 exports.getUserById = async (req, res, next) => {
   try {
-    const user = await User.findById(req.params.id);
-    if (!user) return res.status(404).json({ message: 'User not found' });
+    const user = await User.findById(req.params.id); // Znajdź użytkownika po ID
+    if (!user) return res.status(404).json({ message: "User not found" }); // Użytkownik nie znaleziony
     res.json(user);
   } catch (err) {
-    next(err);
+    next(err); // Przekaż błąd do następnego middleware
   }
 };
 
-// POST /users
+// Utwórz nowego użytkownika
 exports.createUser = async (req, res, next) => {
   try {
-    const newUser = new User(req.body);
-    const saved = await newUser.save();
+    const newUser = new User(req.body); // Utwórz nowego użytkownika
+    const saved = await newUser.save(); // Zapisz użytkownika
     res.status(201).json(saved);
   } catch (err) {
-    next(err);
+    next(err); // Przekaż błąd do następnego middleware
   }
 };
 
-// PUT /users/:id
+// Zaktualizuj użytkownika
 exports.updateUser = async (req, res, next) => {
   try {
-    const updated = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!updated) return res.status(404).json({ message: 'User not found' });
+    const updated = await User.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    }); // Zaktualizuj użytkownika
+    if (!updated) return res.status(404).json({ message: "User not found" }); // Użytkownik nie znaleziony
     res.json(updated);
   } catch (err) {
-    next(err);
+    next(err); // Przekaż błąd do następnego middleware
   }
 };
 
-// DELETE /users/:id
+// Usuń użytkownika
 exports.deleteUser = async (req, res, next) => {
   try {
-    const deleted = await User.findByIdAndDelete(req.params.id);
-    if (!deleted) return res.status(404).json({ message: 'User not found' });
-    res.json({ message: 'Deleted' });
+    const deleted = await User.findByIdAndDelete(req.params.id); // Usuń użytkownika
+    if (!deleted) return res.status(404).json({ message: "User not found" }); // Użytkownik nie znaleziony
+    res.json({ message: "Deleted" });
   } catch (err) {
-    next(err);
+    next(err); // Przekaż błąd do następnego middleware
   }
 };

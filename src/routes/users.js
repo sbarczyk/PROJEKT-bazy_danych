@@ -37,19 +37,10 @@ router.post('/register', async (req, res) => {
 });
 
 
-
-// function adminOnly(req, res, next) {
-//   if (!req.user.isAdmin) {
-//     return res.status(403).json({ success:false, message:'Brak dostępu. Tylko admin.' });
-//   }
-//   next();
-// }
-
-
 router.post(
   '/',
-  protect,      // musi być zalogowany
-  adminOnly,    // i mieć flagę isAdmin === true
+  protect,
+  adminOnly,
   async (req, res) => {
     try {
       const { name, email, password, isAdmin } = req.body;
@@ -57,7 +48,7 @@ router.post(
         name,
         email,
         password,
-        isAdmin: Boolean(isAdmin)  // jeśli admin chce, może ustawić true
+        isAdmin: Boolean(isAdmin)
       });
       res.status(201).json({
         success: true,
@@ -79,7 +70,6 @@ router.post(
 router.get('/', protect, adminOnly, async (req, res) => {
   try {
     const users = await User.find()
-      // .select('-password')
     res.json({ success: true, users });
   } catch (err) {
     res.status(500).json({ success:false, message: err.message });
@@ -113,7 +103,7 @@ router.patch('/:id', protect, async (req, res) => {
       id,
       { $set: updateData },
       { new: true, runValidators: true }
-    );  // nigdy nie zwracaj hash’a
+    );
 
     if (!updatedUser) {
       return res.status(404).json({

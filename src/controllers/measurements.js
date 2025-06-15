@@ -1,46 +1,43 @@
 // controllers/measurementController.js
-const Measurement = require('../models/Measurement');
+const Measurement = require("../models/Measurement");
 
-// GET /api/measurements
-// zwraca pomiar zalogowanego usera
+// Pobierz pomiar zalogowanego użytkownika
 exports.getMy = async (req, res) => {
-  const m = await Measurement.findOne({ user: req.user.id });
+  const m = await Measurement.findOne({ user: req.user.id }); // Znajdź pomiar użytkownika
   return res.json({ success: true, data: m });
 };
 
-// GET /api/measurements/all
-// adminOnly: wszystkie pomiary
+// Pobierz wszystkie pomiary - Tylko dla administratora
 exports.getAll = async (req, res) => {
-  const all = await Measurement.find().populate('user', 'name email');
+  const all = await Measurement.find().populate("user", "name email"); // Pobierz i dołącz dane użytkownika
   res.json({ success: true, count: all.length, data: all });
 };
 
-// POST /api/measurements
-// zwykły user tylko raz
+// Utwórz nowy pomiar - Zwykły użytkownik może tylko raz
 exports.create = async (req, res) => {
   try {
-    const exists = await Measurement.findOne({ user: req.user.id });
+    const exists = await Measurement.findOne({ user: req.user.id }); // Sprawdź, czy pomiar już istnieje
     if (exists) {
       return res.status(400).json({
         success: false,
-        message: 'Masz już pomiar. Użyj PATCH, żeby zaktualizować.'
+        message: "Masz już pomiar. Użyj PATCH, żeby zaktualizować.",
       });
     }
-    const m = await Measurement.create({ ...req.body, user: req.user.id });
+    const m = await Measurement.create({ ...req.body, user: req.user.id }); // Utwórz nowy pomiar
     res.status(201).json({ success: true, data: m });
   } catch (err) {
-    res.status(400).json({ success: false, message: err.message });
+    res.status(400).json({ success: false, message: err.message }); // Obsługa błędów
   }
 };
 
-// PATCH /api/measurements/:userId   ← admin modyfikuje po userId
+// Zaktualizuj pomiar użytkownika - Tylko dla administratora
 exports.updateByUser = async (req, res) => {
   try {
     const userId = req.params.userId;
     if (Object.keys(req.body).length === 0) {
       return res.status(400).json({
         success: false,
-        message: 'Brak danych do aktualizacji.'
+        message: "Brak danych do aktualizacji.",
       });
     }
 
@@ -48,57 +45,65 @@ exports.updateByUser = async (req, res) => {
     delete updates._id;
     delete updates.user;
 
-    const m = await Measurement.findOne({ user: userId });
+    const m = await Measurement.findOne({ user: userId }); // Znajdź pomiar użytkownika
     if (!m) {
       return res.status(404).json({
         success: false,
-        message: 'Pomiar tego użytkownika nie istnieje.'
+        message: "Pomiar tego użytkownika nie istnieje.",
       });
     }
 
-    Object.assign(m, updates);
+    Object.assign(m, updates); // Zaktualizuj pomiar
     await m.save();
 
     res.json({ success: true, data: m });
   } catch (err) {
-    res.status(400).json({ success: false, message: err.message });
+    res.status(400).json({ success: false, message: err.message }); // Obsługa błędów
   }
 };
 
-
-// DELETE /api/measurements/:userId   ← admin usuwa pomiar po userId
+// Usuń pomiar użytkownika - Tylko dla administratora
 exports.deleteByUser = async (req, res) => {
   try {
     const userId = req.params.userId;
-    const m = await Measurement.findOneAndDelete({ user: userId });
+    const m = await Measurement.findOneAndDelete({ user: userId }); // Usuń pomiar użytkownika
     if (!m) {
-      return res.status(404).json({ success:false, message:'Pomiar tego użytkownika nie istnieje.' });
+      return res
+        .status(404)
+        .json({
+          success: false,
+          message: "Pomiar tego użytkownika nie istnieje.",
+        });
     }
-    res.json({ success:true, message:'Pomiar usunięty.' });
+    res.json({ success: true, message: "Pomiar usunięty." });
   } catch (err) {
-    res.status(500).json({ success:false, message: err.message });
+    res.status(500).json({ success: false, message: err.message }); // Obsługa błędów
   }
 };
 
-
-// PATCH /api/measurements  (bez :id)
+// Zaktualizuj własny pomiar
 exports.updateMy = async (req, res) => {
   try {
-    const m = await Measurement.findOne({ user: req.user.id });
-    if (!m) return res.status(404).json({ success:false, message:'Nie masz pomiaru.' });
-    Object.assign(m, req.body);
+    const m = await Measurement.findOne({ user: req.user.id }); // Znajdź pomiar użytkownika
+    if (!m)
+      return res
+        .status(404)
+        .json({ success: false, message: "Nie masz pomiaru." });
+    Object.assign(m, req.body); // Zaktualizuj pomiar
     await m.save();
-    res.json({ success:true, data: m });
+    res.json({ success: true, data: m });
   } catch (err) {
-    res.status(400).json({ success:false, message: err.message });
+    res.status(400).json({ success: false, message: err.message }); // Obsługa błędów
   }
 };
 
-// DELETE /api/measurements
+// Usuń własny pomiar
 exports.deleteMy = async (req, res) => {
-  const result = await Measurement.findOneAndDelete({ user: req.user.id });
+  const result = await Measurement.findOneAndDelete({ user: req.user.id }); // Usuń pomiar użytkownika
   if (!result) {
-    return res.status(404).json({ success:false, message:'Nie masz pomiaru.' });
+    return res
+      .status(404)
+      .json({ success: false, message: "Nie masz pomiaru." });
   }
-  res.json({ success:true, message:'Twój pomiar został usunięty.' });
+  res.json({ success: true, message: "Twój pomiar został usunięty." });
 };

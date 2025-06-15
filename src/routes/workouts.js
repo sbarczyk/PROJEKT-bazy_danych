@@ -4,9 +4,7 @@ const workoutController = require('../controllers/workouts');
 
 const router = express.Router();
 
-// GET – wystarczy protect, żeby znać req.user.
-// Jeśli chcesz, by lista zwracała tylko własne workouty, 
-// filtr zrobisz w kontrolerze (user vs admin).
+
 router.get('/',    protect, workoutController.getAllWorkouts);
 router.get('/:id', protect, workoutController.getWorkoutById);
 
