@@ -24,21 +24,21 @@ const workoutSchema = new mongoose.Schema({
   exercises: {
     type: [workoutExerciseSchema],
     validate: [
-      // 1️⃣ co najmniej jedno ćwiczenie
+      
       {
         validator: arr => Array.isArray(arr) && arr.length > 0,
         message  : 'Workout musi zawierać co najmniej jedno ćwiczenie.'
       },
-      // 2️⃣ każde ID istnieje w kolekcji Exercise (z deduplikacją)
+      
       {
         async validator(arr) {
           const ids       = arr.map(e => e.exercise.toString());
-          const uniqueIds = [...new Set(ids)];                       // ✨ NEW
+          const uniqueIds = [...new Set(ids)];                      
           const count     = await mongoose
                                .model('Exercise')
                                .countDocuments({ _id: { $in: uniqueIds } });
 
-          return count === uniqueIds.length;                         // ✔️
+          return count === uniqueIds.length;                      
         },
         message: 'Co najmniej jedno ćwiczenie nie istnieje w bazie.'
       }

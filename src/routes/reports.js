@@ -23,4 +23,6 @@ router.get(
   reports.topSetsPerMonth
 );
 
+router.get('/workout-count/:userId', protect, reports.workoutCountPerMonth);
+
 module.exports = router;

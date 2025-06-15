@@ -62,3 +62,29 @@ exports.topSetsPerMonth = async (req, res) => {
   }
 };
 
+
+exports.workoutCountPerMonth = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const year  = parseInt(req.query.year);
+    const month = parseInt(req.query.month);
+
+    if (!year || !month || month < 1 || month > 12)
+      return res.status(400).json({
+        success: false,
+        message: 'Podaj poprawne parametry year i month (1-12)'
+      });
+
+    const start = new Date(year, month - 1, 1);                     // 1-ego 00:00
+    const end   = new Date(year, month, 0, 23, 59, 59, 999);        // ostatni dzień
+
+    const count = await Workout.countDocuments({
+      user:  new mongoose.Types.ObjectId(userId),
+      date: { $gte: start, $lte: end }
+    });
+
+    res.json({ success: true, count });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
