@@ -6,7 +6,7 @@ exports.getAllUsers = async (req, res, next) => {
     const users = await User.find(); // Pobierz wszystkich użytkowników
     res.json(users);
   } catch (err) {
-    next(err); // Przekaż błąd do następnego middleware
+    next(err); 
   }
 };
 
@@ -17,7 +17,7 @@ exports.getUserById = async (req, res, next) => {
     if (!user) return res.status(404).json({ message: "User not found" }); // Użytkownik nie znaleziony
     res.json(user);
   } catch (err) {
-    next(err); // Przekaż błąd do następnego middleware
+    next(err); 
   }
 };
 
@@ -28,7 +28,7 @@ exports.createUser = async (req, res, next) => {
     const saved = await newUser.save(); // Zapisz użytkownika
     res.status(201).json(saved);
   } catch (err) {
-    next(err); // Przekaż błąd do następnego middleware
+    next(err); 
   }
 };
 
@@ -41,7 +41,7 @@ exports.updateUser = async (req, res, next) => {
     if (!updated) return res.status(404).json({ message: "User not found" }); // Użytkownik nie znaleziony
     res.json(updated);
   } catch (err) {
-    next(err); // Przekaż błąd do następnego middleware
+    next(err); 
   }
 };
 
@@ -52,6 +52,6 @@ exports.deleteUser = async (req, res, next) => {
     if (!deleted) return res.status(404).json({ message: "User not found" }); // Użytkownik nie znaleziony
     res.json({ message: "Deleted" });
   } catch (err) {
-    next(err); // Przekaż błąd do następnego middleware
+    next(err); 
   }
 };

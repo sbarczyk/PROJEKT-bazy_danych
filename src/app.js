@@ -3,46 +3,49 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-console.log('Loaded URI:', process.env.MONGO_URI);
-
+// Modele
 require('./models/User');
-// Import routów
-const exerciseRoutes    = require('./routes/exercises');
-const workoutRoutes     = require('./routes/workouts');
-const measurementRoutes = require('./routes/measurements');
-const eventRoutes       = require('./routes/events');
-const userRoutes = require('./routes/users');
-const { protect } = require('./middleware/auth');
-
-const app = express();
 
 // Middleware
+const { protect } = require('./middleware/auth');
+const errorHandler = require('./middleware/errorHandler');
+
+// Inicjalizacja aplikacji
+const app = express();
+
+// Middleware globalne
 app.use(cors());
 app.use(express.json());
 
-// Podstawowe routy
-app.use('/api/exercises',   exerciseRoutes);
-app.use('/api/workouts', protect, workoutRoutes);
-app.use('/api/measurements', measurementRoutes);
-app.use('/api/events',       eventRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/reports', require('./routes/reports'));
+// Pokazanie URI bazy w konsoli
+console.log('Loaded URI:', process.env.MONGO_URI);
 
+// Rejestracja tras
+app.use('/api/exercises',     require('./routes/exercises'));
+app.use('/api/workouts',      protect, require('./routes/workouts'));
+app.use('/api/measurements',  require('./routes/measurements'));
+app.use('/api/events',        require('./routes/events'));
+app.use('/api/users',         require('./routes/users'));
+app.use('/api/reports',       require('./routes/reports'));
 
 // Testowy endpoint
 app.get('/', (req, res) => {
   res.send('GymTracker API działa 🚀');
 });
 
+// Handler błędów
+app.use(errorHandler);
+
 // Połączenie z MongoDB i start serwera
 const PORT = process.env.PORT || 3000;
-mongoose.connect(process.env.MONGO_URI, {
-  
-})
-.then(() => {
-  console.log('Połączono z MongoDB');
-  app.listen(PORT, () => console.log(`Serwer działa na porcie ${PORT}`));
-})
-.catch(err => {
-  console.error('Błąd połączenia z MongoDB:', err);
-});
+
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log('Połączono z MongoDB');
+    app.listen(PORT, () => {
+      console.log(`Serwer działa na porcie ${PORT}`);
+    });
+  })
+  .catch(err => {
+    console.error('Błąd połączenia z MongoDB:', err);
+  });
