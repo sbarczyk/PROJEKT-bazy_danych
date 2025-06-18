@@ -34,12 +34,20 @@ git clone https://github.com/sbarczyk/PROJEKT-bazy_danych.git
 cd PROJEKT-bazy_danych
 ```
 
-#### 2. Zainstaluj zależności backendu
+#### 2. Dodaj plik .env w folderze projektu:
+
+```bash
+PORT=3000
+JWT_SECRET=12345
+MONGO_URI=mongodb://127.0.0.1:27017/gymtracker?replicaSet=rs0
+```
+
+#### 3. Zainstaluj zależności backendu
 ```bash
 npm install
 ```
 
-#### 3. Uruchom MongoDB z replica set w Dockerze
+#### 4. Uruchom MongoDB z replica set w Dockerze
 ```bash
 docker run -d \
   --name gymtracker-mongo \
@@ -49,7 +57,7 @@ docker run -d \
   --replSet rs0 --bind_ip_all
 ```
 
-#### 4. Zainicjuj replica set (jednorazowo po starcie MongoDB)
+#### 5. Zainicjuj replica set (jednorazowo po starcie MongoDB)
 ```bash
 docker exec -it gymtracker-mongo mongosh --eval 'rs.initiate({_id: "rs0", members: [{_id: 0, host: "localhost:27017"}]})'
 ```
@@ -59,10 +67,10 @@ mongosh "mongodb://127.0.0.1:27017" --eval 'rs.initiate({_id: "rs0", members: [{
 ```
 
 
-#### 5. Zainstaluj mongorestore (jeśli nie masz)
+#### 6. Zainstaluj mongorestore (jeśli nie masz)
 
 
-#### 6. Przywróć bazę danych z dumpu
+#### 7. Przywróć bazę danych z dumpu
 Upewnij się, że masz folder dump/ (np. ./dump/gymtracker). Potem uruchom:
 ```bash
 mongorestore \
@@ -72,7 +80,7 @@ mongorestore \
 ```
 
 
-#### 7. Uruchom backend
+#### 8. Uruchom backend
 ```bash
 npm start
 ```
