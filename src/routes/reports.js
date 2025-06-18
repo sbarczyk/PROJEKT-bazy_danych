@@ -8,7 +8,7 @@ const { protect, adminOnly } = require('../middleware/auth');
 // kontroler z logiką raportów
 const reports = require('../controllers/reports');
 
-router.get('/leaderboard', protect, adminOnly, reports.leaderboard);
+router.get('/leaderboard', protect, reports.leaderboard);
 
 
 
